@@ -1,0 +1,75 @@
+# World Population ETL Pipeline
+
+A Python ETL (Extract, Transform, Load) pipeline that processes 
+world population data from a CSV file, cleans and transforms it, 
+and outputs a cleaned ZIP file.
+
+## Project Structure
+```
+world_population_etl/
+│
+├── data/
+│   └── world_population.csv   # Raw input data
+├── etl/
+│   ├── __init__.py
+│   ├── extractor.py           # Extracts data from CSV
+│   ├── transformer.py         # Cleans and transforms data
+│   └── loader.py              # Saves output to ZIP file
+├── output/
+│   └── world_population_cleaned.zip  # Cleaned output
+├── main.py                    # Run this to execute pipeline
+├── requirements.txt           # Project dependencies
+└── README.md                  # This file
+```
+
+## How To Run
+
+### 1. Clone the repository
+```
+git clone https://github.com/siddmunjal/world-population-etl.git
+cd world-population-etl
+```
+
+### 2. Create and activate virtual environment
+```
+python -m venv env
+env\Scripts\activate
+```
+
+### 3. Install dependencies
+```
+pip install -r requirements.txt
+```
+
+### 4. Run the pipeline
+```
+python main.py
+```
+
+## What The Pipeline Does
+
+### Extract
+- Reads `world_population.csv` from the `data/` folder
+- Loads 234 rows of world population data
+
+### Transform
+- Normalizes continent and country names to title case
+- Converts growth rate from decimal to percentage (e.g. 1.0257 → 2.57%)
+- Formats population numbers with commas (e.g. 41128771 → 41,128,771)
+- Rounds population density to 2 decimal places
+- Adds new column: Population Change (1970-2022)
+
+### Load
+- Saves cleaned data as a CSV inside a ZIP file
+- Output saved to `output/world_population_cleaned.zip`
+
+## How To Generate Flake8 Report
+```
+flake8 --format=html --htmldir=flake8_report etl/ main.py
+```
+Then open `flake8_report/index.html` in your browser.
+
+## Dependencies
+- pandas
+- flake8
+- flake8-html
